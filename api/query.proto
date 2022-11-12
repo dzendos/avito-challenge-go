@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+option go_package = "github.com/dzendos/avito-challenge";
+
+package query;
+
+import "google/api/annotations.proto";
+
+service QueryListener {
+    rpc PostCredit(CreditInfo) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/credit"
+            body: "*"
+        };  
+    }
+
+    rpc PostReserve(CashFlow) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/reserve"
+            body: "*"
+        };  
+    }
+    
+    rpc PostCancelReserve(CashFlow) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/cancelreserve"
+            body: "*"
+        };  
+    }
+    
+    rpc PostWriteOff(CashFlow) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/writeoff"
+            body: "*"
+        };  
+    }
+    
+    rpc PostGetBalance(CashFlow) returns (Balance) {
+        option (google.api.http) = {
+            post: "/api/getbalance"
+            body: "*"
+        };  
+    }
+    
+    rpc PostGetReport(User) returns (Report) {
+        option (google.api.http) = {
+            post: "/api/getreport"
+            body: "*"
+        };  
+    }
+}
+
+message CreditInfo {
+    int64 user_id = 1;
+    int64 amount  = 2;
+}
+
+message CashFlow {
+    int64 user_id    = 1;
+    int64 service_id = 2;
+    int64 order_id   = 3;
+    int64 amount     = 4;
+}
+
+message Balance {
+    int64 amount = 1;
+}
+
+message Report {
+    repeated CashFlow spendings = 1;
+    repeated CashFlow credits   = 2;
+}
+
+message User {
+    int64 user_id = 1;
+}
+
+message Empty {
+
+}

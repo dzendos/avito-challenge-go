@@ -1,0 +1,14 @@
+token: INSERT YOUR TOKEN
+cbr_service_url: https://cbr.ru/scripts/XML_daily.asp?date_req=
+frequency_currency_rate_update: 86400
+
+http_port: 8080
+grpc_port: 8081
+
+host: localhost
+port: 5432
+user: postgres
+password: postgres
+database: postgres
+test_db: test
+sslmode: disable
