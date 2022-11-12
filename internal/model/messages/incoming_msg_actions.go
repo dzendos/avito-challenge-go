@@ -25,6 +25,10 @@ func (s *Model) credit(ctx context.Context, msg *Message) error {
 
 	currencyRate, err := s.ratesDB.GetCurrencyRate(ctx, GetUserCurrency(msg.UserID), time.Now())
 
+	if err != nil {
+		return errors.Wrap(err, "cannot ratesDB.GetCurrencyRate")
+	}
+
 	amount := enteredAmount * int64(currencyRate) / 100
 
 	reqBody, err := json.Marshal(map[string]string{
@@ -56,6 +60,10 @@ func (s *Model) reserve(ctx context.Context, msg *Message) error {
 	}
 
 	currencyRate, err := s.ratesDB.GetCurrencyRate(ctx, GetUserCurrency(msg.UserID), time.Now())
+
+	if err != nil {
+		return errors.Wrap(err, "cannot ratesDB.GetCurrencyRate")
+	}
 
 	amount := enteredAmount * int64(currencyRate) / 100
 
@@ -91,6 +99,10 @@ func (s *Model) cancel(ctx context.Context, msg *Message) error {
 
 	currencyRate, err := s.ratesDB.GetCurrencyRate(ctx, GetUserCurrency(msg.UserID), time.Now())
 
+	if err != nil {
+		return errors.Wrap(err, "cannot ratesDB.GetCurrencyRate")
+	}
+
 	amount := enteredAmount * int64(currencyRate) / 100
 
 	reqBody, err := json.Marshal(map[string]string{
@@ -124,6 +136,10 @@ func (s *Model) writeoff(ctx context.Context, msg *Message) error {
 	}
 
 	currencyRate, err := s.ratesDB.GetCurrencyRate(ctx, GetUserCurrency(msg.UserID), time.Now())
+
+	if err != nil {
+		return errors.Wrap(err, "cannot ratesDB.GetCurrencyRate")
+	}
 
 	amount := enteredAmount * int64(currencyRate) / 100
 	reqBody, err := json.Marshal(map[string]string{
